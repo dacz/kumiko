@@ -1,4 +1,4 @@
-import { Direction, Field, ColumnInput, Column, Board } from './types'
+import { Direction, Field, ColumnInput, Column, Board, Line, GridDot } from './types'
 
 function verifyAlternatingFields(fields: Field[]): null | Error {
   if (fields.length == 0) {
@@ -34,6 +34,59 @@ function verifySufficientOverlapVerticalLines(cols: Column[]): null | Error {
   return null
 }
 
+// function ident2LinesUp(cols: Column[]) { }
+// function ident2LinesDown(cols: Column[]) { }
+
+// function makeGrid(cols: Column[]) { }
+
+// TODO - zavest prazdny typ trojuhelniku - pro mezery
+
+function leftLinesFromColumn(col: Column): Line[] { }
+function rightLinesFromColumn(col: Column): Line[] { }
+function deOverlapLinesOfSameDirection(lines: Line[]): Line[] { }
+function upLinesFromColumn(col: Column): Line[] { }
+function downLinesFromColumn(col: Column): Line[] { }
+function linesOfPlane(plane: any, lines: Line[]): Line[] { } // plane is a function?, value?
+
+// rewrite it to:
+// 1. calculate the top left of the column (add to the column)
+// 2. calculate vertical lines on both sides (for each column)
+// 3. calculate the up/down lines of the fields (for each column)
+// 4. calculate the biggest rectangle (for the whole board) (smallest and biggest x and y)
+
+
+
+function makeLines(cols: Column[]): Line[] {
+  const lines: Line[] = []
+  for (let x = 0; x < cols.length; x++) {
+    const col = cols[x]
+
+    // -- vertical lines
+    if (x == 0) {
+      // left vertical line - is only one (which is generally not true)
+      lines.push({
+        start: { x, y: col.leftTopYCoord },
+        end: { x, y: col.leftBottomYCoord },
+      })
+    }
+    // right vertical line
+    lines.push({
+      start: { x, y: col.rightTopYCoord },
+      end: { x, y: col.rightBottomYCoord },
+    })
+
+    for (let y = 0; y < col.fields.length; y++) {
+      const field = col.fields[y]
+      if (field.direction === Direction.Up) {
+        // draw line from x, y to x + 0.5, y + 0.5
+      } else {
+        // draw line from x, y to x + 0.5, y - 0.5
+      }
+    }
+  }
+
+}
+
 export function newBoard(input: ColumnInput[]): Board | Error {
   // verify fields alternating
   let i = 0
@@ -46,7 +99,7 @@ export function newBoard(input: ColumnInput[]): Board | Error {
   }
 
   // calculate columns
-  const [columns, n] = input.reduce((acc: [Column[], number], col) => {
+  const [columns, _n] = input.reduce((acc: [Column[], number], col) => {
     const nc = newColumn(acc[1], col)
     return [[...acc[0], nc], nc.rightTopYCoord]
   }, [[], 0] as [Column[], number])
@@ -63,6 +116,12 @@ export function newBoard(input: ColumnInput[]): Board | Error {
     columns: columns,
   }
 }
+
+// then calculate other things on the board 
+//    * bounding box
+//    * vertical coords []
+//    * ups coords []
+//    * downs coords []
 
 function newColumn(initPos: number, input: ColumnInput): Column {
   const leftTopYCoord = initPos + (input.jump || 0)
