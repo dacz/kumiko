@@ -1,0 +1,238 @@
+// Vitest Snapshot v1
+
+exports[`newBoard > fail with 2 jumps, not touching 1`] = `[Error: insufficient overlap between 1. and the next column]`;
+
+exports[`newBoard > ok 1`] = `
+{
+  "columns": [
+    {
+      "fields": [
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": -1,
+      "leftTopYCoord": 0,
+      "rightBottomYCoord": -1.5,
+      "rightTopYCoord": 0.5,
+    },
+    {
+      "fields": [
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": -1.5,
+      "leftTopYCoord": 0.5,
+      "rightBottomYCoord": -1,
+      "rightTopYCoord": 0,
+    },
+  ],
+}
+`;
+
+exports[`newBoard > ok 2 1`] = `
+{
+  "columns": [
+    {
+      "fields": [
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": -1,
+      "leftTopYCoord": 0,
+      "rightBottomYCoord": -1.5,
+      "rightTopYCoord": 0.5,
+    },
+    {
+      "fields": [
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": -0.5,
+      "leftTopYCoord": 0.5,
+      "rightBottomYCoord": -1,
+      "rightTopYCoord": 1,
+    },
+  ],
+}
+`;
+
+exports[`newBoard > ok 2 with jump, touching by corner (is ok) 1`] = `
+{
+  "columns": [
+    {
+      "fields": [
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": -1,
+      "leftTopYCoord": 0,
+      "rightBottomYCoord": -1.5,
+      "rightTopYCoord": 0.5,
+    },
+    {
+      "fields": [
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": 0.5,
+      "leftTopYCoord": 1.5,
+      "rightBottomYCoord": 0,
+      "rightTopYCoord": 2,
+    },
+  ],
+}
+`;
+
+exports[`newBoard > ok alternating columns if jump 1`] = `
+{
+  "columns": [
+    {
+      "fields": [
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": -1,
+      "leftTopYCoord": 0,
+      "rightBottomYCoord": -1.5,
+      "rightTopYCoord": 0.5,
+    },
+    {
+      "fields": [
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": 0.5,
+      "leftTopYCoord": 1.5,
+      "rightBottomYCoord": 0,
+      "rightTopYCoord": 2,
+    },
+  ],
+}
+`;
+
+exports[`newBoard > ok, with jump 1`] = `
+{
+  "columns": [
+    {
+      "fields": [
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": -1,
+      "leftTopYCoord": 0,
+      "rightBottomYCoord": -1.5,
+      "rightTopYCoord": 0.5,
+    },
+    {
+      "fields": [
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+        {
+          "direction": 0,
+          "filling": 0,
+        },
+        {
+          "direction": 1,
+          "filling": 0,
+        },
+      ],
+      "leftBottomYCoord": -0.5,
+      "leftTopYCoord": 1.5,
+      "rightBottomYCoord": 0,
+      "rightTopYCoord": 1,
+    },
+  ],
+}
+`;
