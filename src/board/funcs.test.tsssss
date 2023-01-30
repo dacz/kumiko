@@ -1,5 +1,5 @@
 import { Direction, Filling, Field, ColumnInput, Column, Board } from './types'
-import { newBoard } from './funcs'
+import { newBoard } from './funcs.tsssss'
 import { describe, it, expect } from 'vitest'
 
 const colsInput: ColumnInput[] = [

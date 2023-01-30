@@ -1,6 +1,6 @@
-export enum Direction { // or Left, Right < > ??
-  Up = "up",
-  Down = "down",
+export interface ElementCoords {
+  col: number,
+  vert: number,
 }
 
 export enum Filling {
@@ -8,42 +8,45 @@ export enum Filling {
   Star = "star",
 }
 
-export interface Field {
-  direction: Direction, // mozna je to u ElementCoords (nebo spocitatelny)
+export interface Element {
+  coords: ElementCoords,
   filling: Filling | null, // null is empty one - space
 }
 
-export interface ColumnInput {
-  jump?: number, // if not continued, +x is up, -x is down
-  fields: Field[]
-}
 
-export interface Column {
-  leftTopYCoord: number,
-  leftBottomYCoord: number,
-  rightTopYCoord: number,
-  rightBottomYCoord: number,
 
-  // topleft: GridDot, ??
-  fields: Field[]
-}
-
-export type Columns = Column[]
-
-export interface Board {
-  columns: Columns,
-  // topMax: () => number,
-  // bottomMin: () => number,
-  // width: () => number,
-  // how the vertical lines are described?
-  // how the down lines are calculated and described
-  // how the up lines are calculated and described
-}
-
-export interface GridDot {
+export interface GridDotInterface {
   x: number, // it is the index of the column (not real value, shorter than 1 - sqrt(0.5))
   y: number, // the real values
+  withinPaper: (ps: PaperSize) => boolean,
+  downLeft: () => GridDotInterface,
+  downRight: () => GridDotInterface,
+  upLeft: () => GridDotInterface,
+  upRight: () => GridDotInterface,
+  clone: () => GridDotInterface,
 }
+
+export class GridDot implements GridDotInterface {
+  x: number; // it is the index of the column (not real value, shorter than 1 - sqrt(0.5))
+  y: number; // the real values
+
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
+
+  withinPaper(ps: PaperSize): boolean {
+    return this.x >= 0 && this.x <= ps.maxX && this.y >= 0 && this.y <= ps.maxY;
+  }
+
+  downLeft(): GridDot { return new GridDot(this.x - 1, this.y - 0.5) }
+  downRight(): GridDot { return new GridDot(this.x + 1, this.y - 0.5) }
+  upLeft(): GridDot { return new GridDot(this.x - 1, this.y + 0.5) }
+  upRight(): GridDot { return new GridDot(this.x + 1, this.y + 0.5) }
+  clone(): GridDot { return new GridDot(this.x, this.y) }
+}
+
+
 
 export interface Line {
   start: GridDot,
@@ -52,9 +55,11 @@ export interface Line {
 
 // element grid is the grid of the triangle elements.
 // the 0,0 is an up triangle
-export interface ElementCoords {
-  x: number,
-  y: number,
+
+
+export interface PaperSize {
+  maxX: number,
+  maxY: number,
 }
 
 // ElementCoords can calculate the coords (GridDots) of it's 3 corners
