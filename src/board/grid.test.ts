@@ -1,20 +1,20 @@
-import { PaperSize } from './types'
-import { genUpLine, genUpLines, genDownLine, genDownLines } from './grid'
+import { PaperVirtualSize } from './types'
+import { genDiagonallyUpLine, genDiagonallyUpLines, genDiagonallyDownLine, genDiagonallyDownLines, genVerticalLines } from './grid'
 import { describe, it, expect } from 'vitest'
 
-describe('genUpLine papersize', () => {
-  const paperSize: PaperSize = {
+describe('genDiagonallyUpLine papersize', () => {
+  const paperSize: PaperVirtualSize = {
     maxX: 3,
     maxY: 3,
   }
 
   it('topleft - null line', () => {
-    const line = genUpLine(paperSize, paperSize.maxY)
+    const line = genDiagonallyUpLine(paperSize, paperSize.maxY)
     expect(line).toBe(null)
   })
 
   it('line from 2', () => {
-    const line = genUpLine(paperSize, 2)
+    const line = genDiagonallyUpLine(paperSize, 2)
     // console.log('line>', line);
     expect(line).not.toBe(null)
     expect(line?.start.x).toBe(0)
@@ -24,7 +24,7 @@ describe('genUpLine papersize', () => {
   })
 
   it('line from 1', () => {
-    const line = genUpLine(paperSize, 1)
+    const line = genDiagonallyUpLine(paperSize, 1)
     // console.log('line>>', line);
     expect(line).not.toBe(null)
     expect(line?.start.x).toBe(0)
@@ -34,7 +34,7 @@ describe('genUpLine papersize', () => {
   })
 
   it('line from -1', () => {
-    const line = genUpLine(paperSize, -1)
+    const line = genDiagonallyUpLine(paperSize, -1)
     // console.log('line>>>>>>', line);
     expect(line).not.toBe(null)
     expect(line?.start.x).toBe(2)
@@ -44,20 +44,20 @@ describe('genUpLine papersize', () => {
   })
 
   it('off', () => {
-    const line = genUpLine(paperSize, -10)
+    const line = genDiagonallyUpLine(paperSize, -10)
     expect(line).toBe(null)
   })
 })
 
-describe('genUpLine papersize2', () => {
-  const paperSize: PaperSize = {
+describe('genDiagonallyUpLine papersize2', () => {
+  const paperSize: PaperVirtualSize = {
     maxX: 3,
     maxY: 4,
   }
 
   it('line from 2', () => {
-    const line = genUpLine(paperSize, 2)
-    console.log('line>', line);
+    const line = genDiagonallyUpLine(paperSize, 2)
+    // console.log('line>', line);
     expect(line).not.toBe(null)
     expect(line?.start.x).toBe(0)
     expect(line?.start.y).toBe(2)
@@ -65,9 +65,9 @@ describe('genUpLine papersize2', () => {
     expect(line?.end.y).toBe(3.5)
   })
 
-  it('line from -1', (ctx) => {
-    const line = genUpLine(paperSize, -1)
-    console.log(ctx.meta.name, ': line', line);
+  it('line from -1', () => {
+    const line = genDiagonallyUpLine(paperSize, -1)
+    // console.log('line', line);
     expect(line).not.toBe(null)
     expect(line?.start.x).toBe(2)
     expect(line?.start.y).toBe(0)
@@ -76,36 +76,36 @@ describe('genUpLine papersize2', () => {
   })
 
   it('off', () => {
-    const line = genUpLine(paperSize, -10)
+    const line = genDiagonallyUpLine(paperSize, -10)
     expect(line).toBe(null)
   })
 })
 
-describe('genUpLines', () => {
+describe('genDiagonallyUpLines', () => {
   it('all', () => {
-    const ps: PaperSize = {
+    const ps: PaperVirtualSize = {
       maxX: 3,
       maxY: 3,
     }
-    const lines = genUpLines(ps)
-    console.log('lines>>', lines);
+    const lines = genDiagonallyUpLines(ps)
+    // console.log('lines>>', lines);
     expect(lines.length).toBe(4)
   })
 })
 
-describe('genDownLine papersize', () => {
-  const paperSize: PaperSize = {
+describe('genDiagonallyDownLine papersize', () => {
+  const paperSize: PaperVirtualSize = {
     maxX: 3,
     maxY: 3,
   }
 
   it('bottomleft - null line', () => {
-    const line = genDownLine(paperSize, 0)
+    const line = genDiagonallyDownLine(paperSize, 0)
     expect(line).toBe(null)
   })
 
   it('line from 1', () => {
-    const line = genDownLine(paperSize, 1)
+    const line = genDiagonallyDownLine(paperSize, 1)
     // console.log('line>', line);
     expect(line).not.toBe(null)
     expect(line?.start.x).toBe(0)
@@ -115,7 +115,7 @@ describe('genDownLine papersize', () => {
   })
 
   it('line from 2', () => {
-    const line = genDownLine(paperSize, 2)
+    const line = genDiagonallyDownLine(paperSize, 2)
     // console.log('line>>', line);
     expect(line).not.toBe(null)
     expect(line?.start.x).toBe(0)
@@ -125,7 +125,7 @@ describe('genDownLine papersize', () => {
   })
 
   it('line from 4', () => {
-    const line = genDownLine(paperSize, 4)
+    const line = genDiagonallyDownLine(paperSize, 4)
     // console.log('line>>>>>>', line);
     expect(line).not.toBe(null)
     expect(line?.start.x).toBe(2)
@@ -135,19 +135,31 @@ describe('genDownLine papersize', () => {
   })
 
   it('off', () => {
-    const line = genDownLine(paperSize, 10)
+    const line = genDiagonallyDownLine(paperSize, 10)
     expect(line).toBe(null)
   })
 })
 
-describe('genDownLines', () => {
+describe('genDiagonallyDownLines', () => {
   it('all', () => {
-    const ps: PaperSize = {
+    const ps: PaperVirtualSize = {
       maxX: 3,
       maxY: 3,
     }
-    const lines = genDownLines(ps)
-    console.log('downlines>>', lines);
+    const lines = genDiagonallyDownLines(ps)
+    // console.log('downlines>>', lines);
+    expect(lines.length).toBe(4)
+  })
+})
+
+describe('genVerticalLines', () => {
+  it('all', () => {
+    const ps: PaperVirtualSize = {
+      maxX: 3,
+      maxY: 3,
+    }
+    const lines = genVerticalLines(ps)
+    // console.log('verticallines>>', lines);
     expect(lines.length).toBe(4)
   })
 })

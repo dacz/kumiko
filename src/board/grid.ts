@@ -1,6 +1,6 @@
-import { Line, GridDot, PaperSize } from './types'
+import { Line, GridDot, PaperVirtualSize } from './types'
 
-export function genUpLine(ps: PaperSize, leftYAxis: number): Line | null {
+export function genDiagonallyUpLine(ps: PaperVirtualSize, leftYAxis: number): Line | null {
   if (leftYAxis >= ps.maxY) return null
 
   let start = new GridDot(0, leftYAxis)
@@ -19,7 +19,7 @@ export function genUpLine(ps: PaperSize, leftYAxis: number): Line | null {
   return { start, end } as Line
 }
 
-export function genDownLine(ps: PaperSize, leftYAxis: number): Line | null {
+export function genDiagonallyDownLine(ps: PaperVirtualSize, leftYAxis: number): Line | null {
   if (leftYAxis <= 0) return null
 
   let start = new GridDot(0, leftYAxis)
@@ -38,11 +38,11 @@ export function genDownLine(ps: PaperSize, leftYAxis: number): Line | null {
   return { start, end } as Line
 }
 
-export function genUpLines(ps: PaperSize): Line[] {
+export function genDiagonallyUpLines(ps: PaperVirtualSize): Line[] {
   let lines: Line[] = []
 
   for (let leftYAxis = ps.maxY - 1; ; leftYAxis--) {
-    const line = genUpLine(ps, leftYAxis)
+    const line = genDiagonallyUpLine(ps, leftYAxis)
     if (line == null) break
     lines.push(line)
   }
@@ -50,11 +50,11 @@ export function genUpLines(ps: PaperSize): Line[] {
   return lines
 }
 
-export function genDownLines(ps: PaperSize): Line[] {
+export function genDiagonallyDownLines(ps: PaperVirtualSize): Line[] {
   let lines: Line[] = []
 
   for (let leftYAxis = 1; ; leftYAxis++) {
-    const line = genDownLine(ps, leftYAxis)
+    const line = genDiagonallyDownLine(ps, leftYAxis)
     if (line == null) break
     lines.push(line)
   }
@@ -62,5 +62,23 @@ export function genDownLines(ps: PaperSize): Line[] {
   return lines
 }
 
+export function genVerticalLines(ps: PaperVirtualSize): Line[] {
+  let lines: Line[] = []
 
+  for (let x = 0; x <= ps.maxX; x++) {
+    lines.push({
+      start: new GridDot(x, 0),
+      end: new GridDot(x, ps.maxY),
+    })
+  }
 
+  return lines
+}
+
+export function genAllLines(ps: PaperVirtualSize): Line[] {
+  return [
+    ...genDiagonallyUpLines(ps),
+    ...genDiagonallyDownLines(ps),
+    ...genVerticalLines(ps),
+  ]
+}

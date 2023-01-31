@@ -18,7 +18,7 @@ export interface Element {
 export interface GridDotInterface {
   x: number, // it is the index of the column (not real value, shorter than 1 - sqrt(0.5))
   y: number, // the real values
-  withinPaper: (ps: PaperSize) => boolean,
+  withinPaper: (ps: PaperVirtualSize) => boolean,
   downLeft: () => GridDotInterface,
   downRight: () => GridDotInterface,
   upLeft: () => GridDotInterface,
@@ -35,7 +35,7 @@ export class GridDot implements GridDotInterface {
     this.y = y;
   }
 
-  withinPaper(ps: PaperSize): boolean {
+  withinPaper(ps: PaperVirtualSize): boolean {
     return this.x >= 0 && this.x <= ps.maxX && this.y >= 0 && this.y <= ps.maxY;
   }
 
@@ -43,6 +43,8 @@ export class GridDot implements GridDotInterface {
   downRight(): GridDot { return new GridDot(this.x + 1, this.y - 0.5) }
   upLeft(): GridDot { return new GridDot(this.x - 1, this.y + 0.5) }
   upRight(): GridDot { return new GridDot(this.x + 1, this.y + 0.5) }
+  up(): GridDot { return new GridDot(this.x, this.y + 1) }
+  down(): GridDot { return new GridDot(this.x, this.y - 1) }
   clone(): GridDot { return new GridDot(this.x, this.y) }
 }
 
@@ -57,9 +59,27 @@ export interface Line {
 // the 0,0 is an up triangle
 
 
-export interface PaperSize {
+export interface PaperVirtualSize {
   maxX: number,
   maxY: number,
+}
+
+export class Paper {
+  static readonly xSkew: number = Math.sqrt(0.5);
+
+  size: PaperVirtualSize;
+  sideLength: number;
+  xLength: number;
+  svgElement: SVGElement | null = null;
+
+  constructor(size: PaperVirtualSize, sideLength: number = 100) {
+    this.size = size;
+    this.sideLength = sideLength;
+    this.xLength = this.sideLength * Paper.xSkew;
+  }
+
+  initSVGElement() { } // creates the svg element
+  drawGrid() { }
 }
 
 // ElementCoords can calculate the coords (GridDots) of it's 3 corners
