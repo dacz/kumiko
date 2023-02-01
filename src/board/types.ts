@@ -48,39 +48,35 @@ export class GridDot implements GridDotInterface {
   clone(): GridDot { return new GridDot(this.x, this.y) }
 }
 
-
-
 export interface Line {
   start: GridDot,
   end: GridDot,
 }
 
-// element grid is the grid of the triangle elements.
-// the 0,0 is an up triangle
-
-
+// x is 0 and goes right
+// y is 0 and goes up
 export interface PaperVirtualSize {
   maxX: number,
   maxY: number,
 }
 
-export class Paper {
-  static readonly xSkew: number = Math.sqrt(0.5);
+// export class Paper {
+//   static readonly xSkew: number = Math.sqrt(0.5);
 
-  size: PaperVirtualSize;
-  sideLength: number;
-  xLength: number;
-  svgElement: SVGElement | null = null;
+//   size: PaperVirtualSize;
+//   sideLength: number;
+//   xLength: number;
+//   svgElement: SVGElement | null = null;
 
-  constructor(size: PaperVirtualSize, sideLength: number = 100) {
-    this.size = size;
-    this.sideLength = sideLength;
-    this.xLength = this.sideLength * Paper.xSkew;
-  }
+//   constructor(size: PaperVirtualSize, sideLength: number = 100) {
+//     this.size = size;
+//     this.sideLength = sideLength;
+//     this.xLength = this.sideLength * Paper.xSkew;
+//   }
 
-  initSVGElement() { } // creates the svg element
-  drawGrid() { }
-}
+//   initSVGElement() { } // creates the svg element
+//   drawGrid() { }
+// }
 
 // ElementCoords can calculate the coords (GridDots) of it's 3 corners
 // ElementCoords can calculate the up/down direction
