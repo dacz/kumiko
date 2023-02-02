@@ -27,6 +27,8 @@ export interface GridDotInterface {
 }
 
 export class GridDot implements GridDotInterface {
+  static readonly xSkew: number = Math.sqrt(0.5);
+
   x: number; // it is the index of the column (not real value, shorter than 1 - sqrt(0.5))
   y: number; // the real values
 
@@ -46,11 +48,40 @@ export class GridDot implements GridDotInterface {
   up(): GridDot { return new GridDot(this.x, this.y + 1) }
   down(): GridDot { return new GridDot(this.x, this.y - 1) }
   clone(): GridDot { return new GridDot(this.x, this.y) }
+
+  toRealDot(side: number): ReadDot {
+    return {
+      x: this.x * side * GridDot.xSkew,
+      y: this.y * side,
+    }
+  }
 }
 
-export interface Line {
-  start: GridDot,
-  end: GridDot,
+export interface ReadDot {
+  x: number,
+  y: number,
+}
+
+export class Line {
+  start: GridDot;
+  end: GridDot;
+
+  constructor(start: GridDot, end: GridDot) {
+    this.start = start;
+    this.end = end;
+  }
+
+  toRealLine(side: number): RealLine {
+    return {
+      start: this.start.toRealDot(side),
+      end: this.end.toRealDot(side),
+    }
+  }
+}
+
+export interface RealLine {
+  start: ReadDot,
+  end: ReadDot,
 }
 
 // x is 0 and goes right

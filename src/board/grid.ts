@@ -16,7 +16,8 @@ export function genDiagonallyUpLine(ps: PaperVirtualSize, leftYAxis: number): Li
 
   if (end === null) return null
 
-  return { start, end } as Line
+  return new Line(start, end)
+  // return { start, end } as Line
 }
 
 export function genDiagonallyDownLine(ps: PaperVirtualSize, leftYAxis: number): Line | null {
@@ -35,7 +36,8 @@ export function genDiagonallyDownLine(ps: PaperVirtualSize, leftYAxis: number): 
 
   if (end === null) return null
 
-  return { start, end } as Line
+  return new Line(start, end)
+  // return { start, end } as Line
 }
 
 export function genDiagonallyUpLines(ps: PaperVirtualSize): Line[] {
@@ -66,10 +68,11 @@ export function genVerticalLines(ps: PaperVirtualSize): Line[] {
   let lines: Line[] = []
 
   for (let x = 0; x <= ps.maxX; x++) {
-    lines.push({
-      start: new GridDot(x, 0),
-      end: new GridDot(x, ps.maxY),
-    })
+    lines.push(new Line(new GridDot(x, 0), new GridDot(x, ps.maxY)))
+    // lines.push({
+    //   start: new GridDot(x, 0),
+    //   end: new GridDot(x, ps.maxY),
+    // })
   }
 
   return lines
