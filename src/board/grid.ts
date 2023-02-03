@@ -67,12 +67,14 @@ export function genDiagonallyDownLines(ps: PaperVirtualSize): Line[] {
 export function genVerticalLines(ps: PaperVirtualSize): Line[] {
   let lines: Line[] = []
 
+  // every second vertical line is shorted on top and bottom
+
   for (let x = 0; x <= ps.maxX; x++) {
-    lines.push(new Line(new GridDot(x, 0), new GridDot(x, ps.maxY)))
-    // lines.push({
-    //   start: new GridDot(x, 0),
-    //   end: new GridDot(x, ps.maxY),
-    // })
+    let offset = 0
+    if (x % 2 != 0) {
+      offset = 0.5
+    }
+    lines.push(new Line(new GridDot(x, offset), new GridDot(x, ps.maxY - offset)))
   }
 
   return lines
