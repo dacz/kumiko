@@ -1,5 +1,5 @@
 import { GridDot, RealDot, PaperVirtualSize } from "./types";
-import { SVG, Svg, Polygon } from '@svgdotjs/svg.js'
+import { SVG, Svg, Polygon, StrokeData } from '@svgdotjs/svg.js'
 
 // see the trianglegrid.png in the root of the project
 export interface TriangleCoords {
@@ -34,13 +34,50 @@ export class Triangle {
   }
 
   // will add to dom of this element
-  draw(svg: Svg | null, side: number) {
-    if (!svg) return;
+  draw(svg: Svg | null, side: number): this {
+    if (!svg) return this;
     const rt = this.toRealTriangle(side);
+    let tri = this;
     this.realDom = svg.polygon(
       rt.corners.reduce((acc: number[], c): number[] => acc.concat([c.x, c.y]), [])
-    ).fill('none').stroke({ width: 3, color: 'green' })
-    this.animate() // .... nice!
+    )
+      .click(() => tri.click())
+      .fill(tri.fill())
+      .stroke(tri.stroke())
+    // this.animate() // .... nice!
+    return this
+  }
+
+  fill(): string {
+    return this.filling == Filling.Star
+      ? 'orange'
+      : this.filling == Filling.Empty
+        ? '#999'
+        : 'transparent'
+  }
+
+  stroke(): StrokeData {
+    return this.filling == Filling.Star || this.filling == Filling.Empty
+      ? { width: 3, color: 'green' }
+      : { width: 1, color: 'black' }
+  }
+
+  // click(cb: (e: MouseEvent) => void): this {
+  click(): this {
+    switch (this.filling) {
+      case Filling.None:
+        this.filling = Filling.Empty;
+        break;
+      case Filling.Empty:
+        this.filling = Filling.Star;
+        break;
+      case Filling.Star:
+        this.filling = Filling.None;
+        break;
+    }
+    // console.log('filling', this);
+    this.realDom?.fill(this.fill()).stroke(this.stroke())
+    return this
   }
 
   animate() {
@@ -57,7 +94,6 @@ export function calcCorners(coords: TriangleCoords): GridDot[] {
   const { col, vert } = coords;
   const isEvenCol = col % 2 === 0;
   const isEvenVert = vert % 2 === 0;
-  // kind of 0,0 .. both are even numbers
   if (isEvenCol && isEvenVert) {
     return [
       new GridDot(col, Math.floor(vert / 2)), // bottom left
@@ -92,7 +128,7 @@ export interface RealTriangle {
 export function generateTriangles(pvs: PaperVirtualSize): Triangle[] {
   const triangles: Triangle[] = [];
   for (let col = 0; col < pvs.maxX; col++) {
-    for (let vert = 0; vert < pvs.maxY; vert++) {
+    for (let vert = 0; vert < pvs.maxY * 2 - 1; vert++) {
       triangles.push(new Triangle({ col, vert }));
     }
   }

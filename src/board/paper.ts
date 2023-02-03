@@ -1,13 +1,13 @@
 import { PaperVirtualSize } from './types';
 import { SVG, Svg, Line } from '@svgdotjs/svg.js'
 import { genDiagonallyDownLines, genDiagonallyUpLines, genVerticalLines } from './grid';
-import { generateTriangles } from './triangle';
+import { generateTriangles, Triangle } from './triangle';
 
 // in general the paper reflects how it is represented in the DOM
 // that means x coord is the horizontal axis and 
 // y coord is the vertical axis but positive values go down
 export class Paper {
-  static readonly xSkew: number = Math.sqrt(0.5);
+  static readonly xSkew: number = Math.sqrt(0.75);
 
   size: PaperVirtualSize;
   // rows: number = 0;
@@ -20,6 +20,8 @@ export class Paper {
 
   svgElement: Svg | null = null;
   htmlElement: HTMLElement | null = null;
+
+  triangles: Triangle[] = [];
 
   constructor(size: PaperVirtualSize) {
     this.size = size;
@@ -60,8 +62,8 @@ export class Paper {
       throw new Error('svgElement is null');
     }
 
-    const pvs: PaperVirtualSize = { maxX: 5, maxY: 5 };
-    generateTriangles(pvs).map(triag => triag.draw(this.svgElement, this.rowSVGHeight));
+    // const pvs: PaperVirtualSize = { maxX: 5, maxY: 7 };
+    this.triangles = generateTriangles(this.size).map(triag => triag.draw(this.svgElement, this.rowSVGHeight));
 
     return this;
   }

@@ -1,5 +1,5 @@
 export class GridDot {
-  static readonly xSkew: number = Math.sqrt(0.5);
+  static readonly xSkew: number = Math.sqrt(0.75);
 
   x: number; // it is the index of the column (not real value, shorter than 1 - sqrt(0.5))
   y: number; // the real values
