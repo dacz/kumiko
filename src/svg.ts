@@ -7,6 +7,7 @@ export function setupSVG(elname: HTMLElement) {
   const pvs: PaperVirtualSize = { maxX: 10, maxY: 10 }
   const p = new Paper(pvs).initSVGElement(elname)
   p.drawGrid()
+  p.drawTriangles()
 
   // const draw = SVG().viewbox(0, 0, 1000, 1000).css({ width: '100%', height: '100%' }).addTo(elname)
   // draw.rect(10, 100).move(100, 100).attr({ fill: '#f06' })

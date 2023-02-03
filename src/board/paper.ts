@@ -1,6 +1,7 @@
 import { PaperVirtualSize } from './types';
 import { SVG, Svg, Line } from '@svgdotjs/svg.js'
 import { genDiagonallyDownLines, genDiagonallyUpLines, genVerticalLines } from './grid';
+import { generateTriangles } from './triangle';
 
 // in general the paper reflects how it is represented in the DOM
 // that means x coord is the horizontal axis and 
@@ -50,6 +51,17 @@ export class Paper {
     realLines.forEach(line => {
       this.svgElement?.line(line.start.x, line.start.y, line.end.x, line.end.y).mouseover(boldLine).mouseout(normalLine).stroke({ width: 1, color: '#999' })
     })
+
+    return this;
+  }
+
+  drawTriangles(): this {
+    if (this.svgElement == null) {
+      throw new Error('svgElement is null');
+    }
+
+    const pvs: PaperVirtualSize = { maxX: 5, maxY: 5 };
+    generateTriangles(pvs).map(triag => triag.draw(this.svgElement, this.rowSVGHeight));
 
     return this;
   }

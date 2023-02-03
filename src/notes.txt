@@ -1,0 +1,3 @@
+Potrebuju dostat triangles DOLU - posunout je. Maji se renderovat v podstate vlevo dole a ne nahore.
+
+zaroven vejska triangle gridu je v podstate vejska papiru * 2 - 1
