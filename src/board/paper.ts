@@ -51,7 +51,7 @@ export class Paper {
 
     // draw the lines
     realLines.forEach(line => {
-      this.svgElement?.line(line.start.x, line.start.y, line.end.x, line.end.y).mouseover(boldLine).mouseout(normalLine).stroke({ width: 1, color: '#999' })
+      this.svgElement?.line(line.start.x, line.start.y, line.end.x, line.end.y).mouseover(boldLine).mouseout(normalLine).stroke({ width: 1, color: '#ccc' })
     })
 
     return this;
