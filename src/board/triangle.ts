@@ -1,5 +1,5 @@
 import { GridDot, RealDot, PaperVirtualSize } from "./types";
-import { Svg, Polygon, StrokeData } from '@svgdotjs/svg.js'
+import { Svg, Polygon, StrokeData, G } from '@svgdotjs/svg.js'
 
 // see the trianglegrid.png in the root of the project
 export interface TriangleCoords {
@@ -22,6 +22,7 @@ export class Triangle {
   center: GridDot;
   // real: RealTriangle | null;
   realDom: Polygon | null = null;
+  fillingDomGroup: G | null = null; // TODO - for filling
 
   // svgElement: Svg | null = null;
 
