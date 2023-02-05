@@ -13,8 +13,13 @@ export enum Filling {
   Star = "star",
 }
 
+const stroked = { width: 5, color: '#999' } as StrokeData
+const strokedLines = { width: 5, color: '#999', linecap: 'butt', linejoin: 'bevel' } as StrokeData
+const unstroked = { width: 1, color: '#ddd' } as StrokeData
+
 export class Triangle {
-  static readonly shortToTheStarCenter: number = Math.tan(30 * Math.PI / 180) * 0.5;
+  // static readonly shortToTheStarCenter: number = Math.tan(30 * Math.PI / 180) / 2;
+  static readonly shortToTheStarCenter: number = 0.32867513459481287 // ???
 
   coords: TriangleCoords;
   filling: Filling;
@@ -73,7 +78,7 @@ export class Triangle {
   createStarFillingGroup(svg: Svg, rt: RealTriangle): G {
     const fillingDomGroup = svg.group();
     rt.corners.forEach(rd => {
-      fillingDomGroup.line(rd.x, rd.y, rt.center.x, rt.center.y).stroke({ width: 5, color: '#666' })
+      fillingDomGroup.line(rd.x, rd.y, rt.center.x, rt.center.y).stroke(strokedLines)
     })
     // fillingDomGroup.line(0, 0, 0.4 * side, 0.4 * side).stroke({ width: 5, color: 'orange' })
     // fillingDomGroup.line(0, 0.4 * side, 0.4 * side, 0).stroke({ width: 5, color: 'orange' })
@@ -96,9 +101,7 @@ export class Triangle {
   // }
 
   stroke(): StrokeData {
-    return this.filling == Filling.Star || this.filling == Filling.Empty
-      ? { width: 5, color: '#666' }
-      : { width: 1, color: '#ddd' }
+    return this.filling == Filling.Star || this.filling == Filling.Empty ? stroked : unstroked
   }
 
   // click(cb: (e: MouseEvent) => void): this {
