@@ -22,7 +22,7 @@ export class Triangle {
   center: GridDot;
   // real: RealTriangle | null;
   realDom: Polygon | null = null;
-  fillingDomGroup: G | null = null; // TODO - for filling
+  starDomGroup: G | null = null; // TODO - for filling
 
   // svgElement: Svg | null = null;
 
@@ -47,24 +47,53 @@ export class Triangle {
     if (!svg) return this;
     const rt = this.toRealTriangle(side);
     let tri = this;
+    this.starDomGroup = this.createStarFillingGroup(svg, rt);
+    // this.fillingDomGroup = svg.group();
+    // this.fillingDomGroup
+    //   .circle(0.4 * side)
+    //   .center(rt.center.x, rt.center.y)
+    //   .fill('blue')
+    // this.fillingDomGroup?.css('visibility', 'hidden')
+
     this.realDom = svg.polygon(
       rt.corners.reduce((acc: number[], c): number[] => acc.concat([c.x, c.y]), [])
     )
       .click(() => tri.click())
       .fill(tri.fill())
       .stroke(tri.stroke())
+
+
+    if (this.filling == Filling.Star) {
+      this.starDomGroup.css('visibility', 'visible')
+    }
     // this.animate() // .... nice!
     return this
   }
 
-  fill(): string {
-    return this.filling == Filling.Star
-      ? 'orange'
-      : 'transparent'
-    // this.filling == Filling.Empty
-    //   ? '#eee'
-    //   : 'transparent'
+  createStarFillingGroup(svg: Svg, rt: RealTriangle): G {
+    const fillingDomGroup = svg.group();
+    rt.corners.forEach(rd => {
+      fillingDomGroup.line(rd.x, rd.y, rt.center.x, rt.center.y).stroke({ width: 5, color: '#666' })
+    })
+    // fillingDomGroup.line(0, 0, 0.4 * side, 0.4 * side).stroke({ width: 5, color: 'orange' })
+    // fillingDomGroup.line(0, 0.4 * side, 0.4 * side, 0).stroke({ width: 5, color: 'orange' })
+    // fillingDomGroup
+    //   .circle(0.4 * side)
+    //   .center(rt.center.x, rt.center.y)
+    //   .fill('blue')
+    fillingDomGroup?.css('visibility', 'hidden')
+    return fillingDomGroup;
   }
+
+
+  fill(): string { return 'transparent' }
+  //   return this.filling == Filling.Star
+  //     ? 'transparent' // 'orange'
+  //     : 'transparent'
+  //   // this.filling == Filling.Empty
+  //   //   ? '#eee'
+  //   //   : 'transparent'
+  // }
 
   stroke(): StrokeData {
     return this.filling == Filling.Star || this.filling == Filling.Empty
@@ -74,18 +103,21 @@ export class Triangle {
 
   // click(cb: (e: MouseEvent) => void): this {
   click(): this {
+    console.log('clicked',);
     switch (this.filling) {
       case Filling.None:
         this.filling = Filling.Empty;
+        this.starDomGroup?.css('visibility', 'hidden')
         break;
       case Filling.Empty:
         this.filling = Filling.Star;
+        this.starDomGroup?.css('visibility', 'visible')
         break;
       case Filling.Star:
         this.filling = Filling.None;
+        this.starDomGroup?.css('visibility', 'hidden')
         break;
     }
-    // console.log('filling', this);
     this.realDom?.fill(this.fill()).stroke(this.stroke())
     return this
   }
@@ -149,7 +181,7 @@ export function calcCorners(coords: TriangleCoords): { corners: GridDot[], cente
 
 export interface RealTriangle {
   corners: RealDot[];
-  center?: RealDot;
+  center: RealDot;
 }
 
 export function generateTriangles(pvs: PaperVirtualSize): Triangle[] {
