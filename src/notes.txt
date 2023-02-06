@@ -1,3 +1,22 @@
 Potrebuju dostat triangles DOLU - posunout je. Maji se renderovat v podstate vlevo dole a ne nahore.
 
 zaroven vejska triangle gridu je v podstate vejska papiru * 2 - 1
+
+--
+
+deploynout to nekam... jo.dchere.com 
+
+Jak udelat redraw, kdyz treba posunu trojuhelniky? Ono to mozna jen spravne nakresli, kdyz zmenim ty realTriangles?
+
+Moznost si vybrat ze standardnich boardu (a ono to umisti na board).
+
+Moznost posunout, co je aktualne drawnute > < ^ down
+
+Kdyz je jeden trojuhelnik mezi ostatnima, melo by cyklovat mezi tema 3 nebo jen 2?
+
+Moznost otocit board 90 cw, ccw
+
+Udelat ten higher resolution draw, ktery nakresli i ty maly konecky. Sikmej je celej, jinak ostatni jsou prerusovany. To samy asi i pro filling. Protoze ted ten filling je trochu blbe ohledne tech koncu tech lines.
+
+
+
