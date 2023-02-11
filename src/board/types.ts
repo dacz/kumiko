@@ -23,8 +23,8 @@ export class GridDot {
 
   toRealDot(side: number): RealDot {
     return {
-      x: this.x * side * GridDot.xSkew,
-      y: this.y * side,
+      x: this.x * side * GridDot.xSkew + side / 2,
+      y: this.y * side + side / 2,
     }
   }
 }

@@ -25,9 +25,9 @@ export class Paper {
 
   constructor(size: PaperVirtualSize) {
     this.size = size;
-    this.colSVGWidth = this.svgWidth / this.size.maxX;
+    this.colSVGWidth = this.svgWidth / (this.size.maxX + 1);
     this.rowSVGHeight = this.colSVGWidth / Paper.xSkew;
-    this.svgHeight = this.rowSVGHeight * this.size.maxY;
+    this.svgHeight = this.rowSVGHeight * (this.size.maxY + 1);
   }
 
   // creates the svg element and attaches it to the DOM
