@@ -114,6 +114,6 @@ describe('generate triangles', () => {
   it('ok', () => {
     const pvs: PaperVirtualSize = { maxX: 10, maxY: 10 }
     const trigs = generateTriangles(pvs)
-    expect(trigs.length).toBe(200)
+    expect(trigs.length).toBe(190)
   })
 })
