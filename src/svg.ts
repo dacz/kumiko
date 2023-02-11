@@ -4,7 +4,7 @@ import { PaperVirtualSize } from './board/types';
 
 export function setupSVG(elname: HTMLElement) {
 
-  const pvs: PaperVirtualSize = { maxX: 10, maxY: 10 }
+  const pvs: PaperVirtualSize = { maxX: 8, maxY: 8 }
   const p = new Paper(pvs).initSVGElement(elname)
   // p.drawGrid()
   p.drawTriangles()

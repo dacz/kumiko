@@ -1,6 +1,6 @@
 import { PaperVirtualSize } from './types';
-import { SVG, Svg, Line } from '@svgdotjs/svg.js'
-import { genDiagonallyDownLines, genDiagonallyUpLines, genVerticalLines } from './grid';
+import { SVG, Svg } from '@svgdotjs/svg.js'
+// import { genDiagonallyDownLines, genDiagonallyUpLines, genVerticalLines } from './grid';
 import { generateTriangles, Triangle } from './triangle';
 
 // in general the paper reflects how it is represented in the DOM
@@ -38,24 +38,24 @@ export class Paper {
   }
 
   // draws the grid
-  drawGrid(): this {
-    if (this.svgElement == null) {
-      throw new Error('svgElement is null');
-    }
+  // drawGrid(): this {
+  //   if (this.svgElement == null) {
+  //     throw new Error('svgElement is null');
+  //   }
 
-    // these lines are in virtual coords
-    const virtualLines = genDiagonallyDownLines(this.size).concat(genDiagonallyUpLines(this.size), genVerticalLines(this.size));
+  //   // these lines are in virtual coords
+  //   const virtualLines = genDiagonallyDownLines(this.size).concat(genDiagonallyUpLines(this.size), genVerticalLines(this.size));
 
-    // calculate the lines real coords
-    const realLines = virtualLines.map(line => line.toRealLine(this.rowSVGHeight))
+  //   // calculate the lines real coords
+  //   const realLines = virtualLines.map(line => line.toRealLine(this.rowSVGHeight))
 
-    // draw the lines
-    realLines.forEach(line => {
-      this.svgElement?.line(line.start.x, line.start.y, line.end.x, line.end.y).mouseover(boldLine).mouseout(normalLine).stroke({ width: 1, color: '#ccc' })
-    })
+  //   // draw the lines
+  //   realLines.forEach(line => {
+  //     this.svgElement?.line(line.start.x, line.start.y, line.end.x, line.end.y).mouseover(boldLine).mouseout(normalLine).stroke({ width: 1, color: '#ccc' })
+  //   })
 
-    return this;
-  }
+  //   return this;
+  // }
 
   drawTriangles(): this {
     if (this.svgElement == null) {
@@ -69,10 +69,10 @@ export class Paper {
   }
 }
 
-function boldLine(this: Line) {
-  this.stroke({ width: 2, color: 'red' })
-}
+// function boldLine(this: Line) {
+//   this.stroke({ width: 2, color: 'red' })
+// }
 
-function normalLine(this: Line) {
-  this.stroke({ width: 1, color: '#999' })
-}
+// function normalLine(this: Line) {
+//   this.stroke({ width: 1, color: '#999' })
+// }

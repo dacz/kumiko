@@ -8,12 +8,12 @@ describe('calcCorners', () => {
     const coords: TriangleCoords = { col: 0, vert: 0 }
     const { corners, center } = calcCorners(coords)
     expect(corners.length).toBe(3)
-    expect(center).toMatchObject({ x: Triangle.shortToTheStarCenter, y: 0.5 })
+    expect(center).toMatchObject({ x: 1 - Triangle.shortToTheStarCenter, y: 0.5 })
     // console.log('corners', corners);
     expect(corners).toMatchObject([
-      { x: 0, y: 0 },
-      { x: 1, y: 0.5 },
-      { x: 0, y: 1 },
+      { x: 0, y: 0.5 },
+      { x: 1, y: 0 },
+      { x: 1, y: 1 },
     ])
   })
 
@@ -21,12 +21,12 @@ describe('calcCorners', () => {
     const coords: TriangleCoords = { col: 1, vert: 0 }
     const { corners, center } = calcCorners(coords)
     expect(corners.length).toBe(3)
-    expect(center).toMatchObject({ x: 2 - Triangle.shortToTheStarCenter, y: 0.5 })
+    expect(center).toMatchObject({ x: 1 + Triangle.shortToTheStarCenter, y: 0.5 })
     // console.log('corners', corners);
     expect(corners).toMatchObject([
-      { x: 1, y: 0.5 },
-      { x: 2, y: 0 },
-      { x: 2, y: 1 }
+      { x: 1, y: 0 },
+      { x: 2, y: 0.5 },
+      { x: 1, y: 1 }
     ])
   })
 
@@ -34,12 +34,12 @@ describe('calcCorners', () => {
     const coords: TriangleCoords = { col: 0, vert: 1 }
     const { corners, center } = calcCorners(coords)
     expect(corners.length).toBe(3)
-    expect(center).toMatchObject({ x: 1 - Triangle.shortToTheStarCenter, y: 1 })
+    expect(center).toMatchObject({ x: Triangle.shortToTheStarCenter, y: 1 })
     // console.log('corners', corners);
     expect(corners).toMatchObject([
-      { x: 0, y: 1 },
-      { x: 1, y: 0.5 },
-      { x: 1, y: 1.5 }
+      { x: 0, y: 0.5 },
+      { x: 1, y: 1 },
+      { x: 0, y: 1.5 }
     ])
   })
 
@@ -47,12 +47,12 @@ describe('calcCorners', () => {
     const coords: TriangleCoords = { col: 1, vert: 1 }
     const { corners, center } = calcCorners(coords)
     expect(corners.length).toBe(3)
-    expect(center).toMatchObject({ x: 1 + Triangle.shortToTheStarCenter, y: 1 })
+    expect(center).toMatchObject({ x: 2 - Triangle.shortToTheStarCenter, y: 1 })
     // console.log('corners', corners);
     expect(corners).toMatchObject([
-      { x: 1, y: 0.5 },
-      { x: 2, y: 1 },
-      { x: 1, y: 1.5 }
+      { x: 1, y: 1 },
+      { x: 2, y: 0.5 },
+      { x: 2, y: 1.5 }
     ])
   })
 
@@ -60,12 +60,12 @@ describe('calcCorners', () => {
     const coords: TriangleCoords = { col: 3, vert: 4 }
     const { corners, center } = calcCorners(coords)
     expect(corners.length).toBe(3)
-    expect(center).toMatchObject({ x: 4 - Triangle.shortToTheStarCenter, y: 2.5 })
+    expect(center).toMatchObject({ x: 3 + Triangle.shortToTheStarCenter, y: 2.5 })
     // console.log('corners', corners);
     expect(corners).toMatchObject([
-      { x: 3, y: 2.5 },
-      { x: 4, y: 2 },
-      { x: 4, y: 3 }
+      { x: 3, y: 2 },
+      { x: 4, y: 2.5 },
+      { x: 3, y: 3 }
     ])
   })
 
@@ -73,12 +73,12 @@ describe('calcCorners', () => {
     const coords: TriangleCoords = { col: 2, vert: 4 }
     const { corners, center } = calcCorners(coords)
     expect(corners.length).toBe(3)
-    expect(center).toMatchObject({ x: 2 + Triangle.shortToTheStarCenter, y: 2.5 })
+    expect(center).toMatchObject({ x: 3 - Triangle.shortToTheStarCenter, y: 2.5 })
     // console.log('corners', corners);
     expect(corners).toMatchObject([
-      { x: 2, y: 2 },
-      { x: 3, y: 2.5 },
-      { x: 2, y: 3 }
+      { x: 2, y: 2.5 },
+      { x: 3, y: 2 },
+      { x: 3, y: 3 }
     ])
   })
 
@@ -86,12 +86,12 @@ describe('calcCorners', () => {
     const coords: TriangleCoords = { col: 2, vert: 3 }
     const { corners, center } = calcCorners(coords)
     expect(corners.length).toBe(3)
-    expect(center).toMatchObject({ x: 3 - Triangle.shortToTheStarCenter, y: 2 })
+    expect(center).toMatchObject({ x: 2 + Triangle.shortToTheStarCenter, y: 2 })
     // console.log('corners', corners);
     expect(corners).toMatchObject([
-      { x: 2, y: 2 },
-      { x: 3, y: 1.5 },
-      { x: 3, y: 2.5 }
+      { x: 2, y: 1.5 },
+      { x: 3, y: 2 },
+      { x: 2, y: 2.5 }
     ])
   })
 
@@ -99,12 +99,12 @@ describe('calcCorners', () => {
     const coords: TriangleCoords = { col: 3, vert: 3 }
     const { corners, center } = calcCorners(coords)
     expect(corners.length).toBe(3)
-    expect(center).toMatchObject({ x: 3 + Triangle.shortToTheStarCenter, y: 2 })
+    expect(center).toMatchObject({ x: 4 - Triangle.shortToTheStarCenter, y: 2 })
     // console.log('corners', corners);
     expect(corners).toMatchObject([
-      { x: 3, y: 1.5 },
-      { x: 4, y: 2 },
-      { x: 3, y: 2.5 }
+      { x: 3, y: 2 },
+      { x: 4, y: 1.5 },
+      { x: 4, y: 2.5 }
     ])
   })
 })
@@ -114,6 +114,6 @@ describe('generate triangles', () => {
   it('ok', () => {
     const pvs: PaperVirtualSize = { maxX: 10, maxY: 10 }
     const trigs = generateTriangles(pvs)
-    expect(trigs.length).toBe(190)
+    expect(trigs.length).toBe(200)
   })
 })

@@ -135,31 +135,22 @@ function randomColor() {
   return '#' + Math.floor(Math.random() * 16777215).toString(16);
 }
 
+// od y (vert) se odecte 1
 export function calcCorners(coords: TriangleCoords): { corners: GridDot[], center: GridDot } {
   const { col, vert } = coords;
   const isEvenCol = col % 2 === 0;
   const isEvenVert = vert % 2 === 0;
-  if (isEvenCol && isEvenVert) {
+  if (isEvenCol && !isEvenVert) {
     const corners = [
-      new GridDot(col, Math.floor(vert / 2)), // bottom left
-      new GridDot(col + 1, Math.floor(vert / 2) + 0.5), // right
-      new GridDot(col, Math.floor(vert / 2) + 1), // top left
+      new GridDot(col, Math.floor(vert / 2) + 0.5), // bottom left
+      new GridDot(col + 1, Math.floor(vert / 2) + 1), // right
+      new GridDot(col, Math.floor(vert / 2) + 1.5), // top left
     ]
     const center = corners[0].clone();
     center.x += Triangle.shortToTheStarCenter;
     center.y += 0.5;
     return { corners, center }
-  } else if (!isEvenCol && isEvenVert) {
-    const corners = [
-      new GridDot(col, Math.floor(vert / 2) + 0.5), // left middle
-      new GridDot(col + 1, Math.floor(vert / 2)), // bottom right
-      new GridDot(col + 1, Math.floor(vert / 2) + 1), // top right
-    ]
-    const center = corners[1].clone();
-    center.x -= Triangle.shortToTheStarCenter;
-    center.y += 0.5;
-    return { corners, center }
-  } else if (isEvenCol && !isEvenVert) {
+  } else if (!isEvenCol && !isEvenVert) {
     const corners = [
       new GridDot(col, Math.floor(vert / 2) + 1), // left middle
       new GridDot(col + 1, Math.floor(vert / 2) + 0.5), // bottom right
@@ -169,12 +160,22 @@ export function calcCorners(coords: TriangleCoords): { corners: GridDot[], cente
     center.x -= Triangle.shortToTheStarCenter;
     center.y += 0.5;
     return { corners, center }
+  } else if (isEvenCol && isEvenVert) {
+    const corners = [
+      new GridDot(col, Math.floor(vert / 2) + 0.5), // left middle
+      new GridDot(col + 1, Math.floor(vert / 2)), // bottom right
+      new GridDot(col + 1, Math.floor(vert / 2) + 1), // top right
+    ]
+    const center = corners[1].clone();
+    center.x -= Triangle.shortToTheStarCenter;
+    center.y += 0.5;
+    return { corners, center }
   }
-  //  else if (!isEvenCol && !isEvenVert) { // < not needed, last possible variant
+  //  else if (!isEvenCol && isEvenVert) { // < not needed, last possible variant
   const corners = [
-    new GridDot(col, Math.floor(vert / 2) + 0.5), // left bottom
-    new GridDot(col + 1, Math.floor(vert / 2) + 1), // right
-    new GridDot(col, Math.floor(vert / 2) + 1.5), // top left
+    new GridDot(col, Math.floor(vert / 2)), // left bottom
+    new GridDot(col + 1, Math.floor(vert / 2) + 0.5), // right
+    new GridDot(col, Math.floor(vert / 2) + 1), // top left
   ]
   const center = corners[0].clone();
   center.x += Triangle.shortToTheStarCenter;
