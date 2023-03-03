@@ -188,11 +188,11 @@ export interface RealTriangle {
   center: RealDot;
 }
 
-export function generateTriangles(pvs: PaperVirtualSize): Triangle[] {
+export function generateTriangles(pvs: PaperVirtualSize, notifyFn?: (tri: Triangle) => void): Triangle[] {
   const triangles: Triangle[] = [];
   for (let col = 0; col < pvs.maxX; col++) {
     for (let vert = 0; vert < pvs.maxY * 2 - 1; vert++) {
-      triangles.push(new Triangle({ col, row: vert }));
+      triangles.push(new Triangle({ col, row: vert }, notifyFn));
     }
   }
   return triangles;
