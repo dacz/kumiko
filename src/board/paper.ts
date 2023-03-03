@@ -37,26 +37,6 @@ export class Paper {
     return this;
   }
 
-  // draws the grid
-  // drawGrid(): this {
-  //   if (this.svgElement == null) {
-  //     throw new Error('svgElement is null');
-  //   }
-
-  //   // these lines are in virtual coords
-  //   const virtualLines = genDiagonallyDownLines(this.size).concat(genDiagonallyUpLines(this.size), genVerticalLines(this.size));
-
-  //   // calculate the lines real coords
-  //   const realLines = virtualLines.map(line => line.toRealLine(this.rowSVGHeight))
-
-  //   // draw the lines
-  //   realLines.forEach(line => {
-  //     this.svgElement?.line(line.start.x, line.start.y, line.end.x, line.end.y).mouseover(boldLine).mouseout(normalLine).stroke({ width: 1, color: '#ccc' })
-  //   })
-
-  //   return this;
-  // }
-
   drawTriangles(): this {
     if (this.svgElement == null) {
       throw new Error('svgElement is null');
@@ -69,10 +49,3 @@ export class Paper {
   }
 }
 
-// function boldLine(this: Line) {
-//   this.stroke({ width: 2, color: 'red' })
-// }
-
-// function normalLine(this: Line) {
-//   this.stroke({ width: 1, color: '#999' })
-// }
