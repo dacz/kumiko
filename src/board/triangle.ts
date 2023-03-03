@@ -87,6 +87,7 @@ export class Triangle {
 
   // click(cb: (e: MouseEvent) => void): this {
   click(): this {
+    console.log('CLICKED',);
     switch (this.filling) {
       case Filling.None:
         return this.applyFilling(Filling.Empty);
@@ -111,13 +112,13 @@ export class Triangle {
         break;
     }
     this.realDom?.fill(this.fill()).stroke(this.stroke())
-    this.notifyFn?.(this)
+    this.notifyFn?.bind(this, this)()
     return this
   }
 
   // serializes either only none "None" triangles, or all
-  serialize(all?: boolean): string {
-    if (!all && this.filling == Filling.None) return '';
+  serialize(all?: boolean): string | undefined {
+    if (!all && this.filling == Filling.None) return undefined;
     return `${this.coords.col},${this.coords.row},${this.filling}`
   }
 

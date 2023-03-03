@@ -19,14 +19,13 @@ export class Paper {
   htmlElement: HTMLElement | null = null;
 
   triangles: Triangle[] = [];
-  notifyFn: ((inp?: any) => void) | null = null;
+  notifyFn: ((pap: Paper) => void) | null = null;
 
-  constructor(size: PaperVirtualSize, notifyFn?: (inp?: any) => void) {
+  constructor(size: PaperVirtualSize) {
     this.size = size;
     this.colSVGWidth = this.svgWidth / (this.size.maxX + 1);
     this.rowSVGHeight = this.colSVGWidth / Paper.xSkew;
     this.svgHeight = this.rowSVGHeight * (this.size.maxY + 1);
-    this.notifyFn = notifyFn || null;
   }
 
   // creates the svg element and attaches it to the DOM
@@ -36,9 +35,14 @@ export class Paper {
     return this;
   }
 
+  registerNotifier(notifyFn: (pap: Paper) => void): this {
+    this.notifyFn = notifyFn;
+    return this;
+  }
+
   notifyTriangleChange(tri: Triangle): void {
     console.log('TRIANGLE CHANGED:', tri);
-    this.notifyFn?.("just changed")
+    this.notifyFn?.bind(this, this)()
   }
 
   drawTriangles(trigs?: ParsedTriangleData[]): this {
@@ -46,7 +50,7 @@ export class Paper {
       throw new Error('svgElement is null');
     }
 
-    this.triangles = generateTriangles(this.size, this.notifyTriangleChange).map(triag => triag.draw(this.svgElement, this.rowSVGHeight));
+    this.triangles = generateTriangles(this.size, this.notifyTriangleChange.bind(this)).map(triag => triag.draw(this.svgElement, this.rowSVGHeight));
 
     if (trigs) this.applyTriangleData(trigs);
 
@@ -64,7 +68,7 @@ export class Paper {
   serialize(): string {
     const ps = {
       size: this.size,
-      trigs: this.triangles.map(tri => tri.serialize()),
+      trigs: this.triangles.map(tri => tri.serialize()).filter(tri => tri != null),
     } as PaperSerialized;
     return JSON.stringify(ps);
   }
