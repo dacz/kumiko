@@ -109,3 +109,7 @@ button:focus-visible {
     width: 500px;
     margin: 10px auto;
 }
+
+#serialized {
+    text-align: center;
+}
