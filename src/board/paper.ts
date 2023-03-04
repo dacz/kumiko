@@ -1,6 +1,6 @@
 import { PaperVirtualSize } from './types';
 import { SVG, Svg } from '@svgdotjs/svg.js'
-import { generateTriangles, Triangle, ParsedTriangleData } from './triangle';
+import { generateTriangles, Triangle, ParsedTriangleData, Filling } from './triangle';
 
 // in general the paper reflects how it is represented in the DOM
 // that means x coord is the horizontal axis and 
@@ -62,6 +62,11 @@ export class Paper {
       const found = trigs.find(trig => tri.hasCoords(trig.coords));
       if (found) tri.applyFilling(found.filling);
     });
+    return this;
+  }
+
+  resetTriangles(): this {
+    this.triangles.forEach(tri => tri.reset());
     return this;
   }
 

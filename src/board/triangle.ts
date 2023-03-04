@@ -126,6 +126,11 @@ export class Triangle {
     return this.coords.col == coords.col && this.coords.row == coords.row
   }
 
+  reset(): this {
+    this.applyFilling(Filling.None)
+    return this
+  }
+
   // animate() {
   //   if (!this.realDom) return;
   //   setInterval(() => this.realDom?.fill(randomColor()), 1000)
