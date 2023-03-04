@@ -1,6 +1,6 @@
-import { PaperVirtualSize } from './types';
+import { PaperVirtualSize, serializePVS, deserializePVS } from './types';
 import { SVG, Svg } from '@svgdotjs/svg.js'
-import { Triangle, ParsedTriangleData } from './triangle';
+import { Triangle, ParsedTriangleData, parseSerializedTriangle } from './triangle';
 
 // in general the paper reflects how it is represented in the DOM
 // that means x coord is the horizontal axis and 
@@ -86,15 +86,27 @@ export class Paper {
   }
 
   serialize(): string {
-    const ps = {
-      size: this.size,
-      trigs: this.triangles.flat().map(tri => tri.serialize()).filter(tri => tri != null),
-    } as PaperSerialized;
-    return JSON.stringify(ps);
+    const pvs = serializePVS(this.size);
+    const trigs = this.triangles.flat().map(tri => tri.serialize()).filter(tri => tri != null)
+    return `${pvs}|TR:${trigs.join(';')}`
   }
 }
 
 export interface PaperSerialized {
   size: PaperVirtualSize;
-  trigs: string[];
+  trigs: ParsedTriangleData[];
+}
+
+export function deserializePaper(str: string): PaperSerialized {
+  const [pvs, trigsAll] = str.split('|');
+  if (pvs == null || trigsAll == null) throw new Error(`invalid serialized paper: ${str}`);
+
+  const size = deserializePVS(pvs);
+
+  const [_, trigsFullStr] = trigsAll.split(/^TR:(.*)$/);
+  if (trigsFullStr == null) throw new Error(`invalid serialized paper: ${str}`);
+
+  const trigs = trigsFullStr.split(';').map(parseSerializedTriangle).filter(tri => !(tri instanceof Error)) as ParsedTriangleData[];
+
+  return { size, trigs };
 }

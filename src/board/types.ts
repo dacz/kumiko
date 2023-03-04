@@ -63,3 +63,16 @@ export interface PaperVirtualSize {
   maxY: number,
 }
 
+export function serializePVS(pvs: PaperVirtualSize): string {
+  return `PS:${pvs.maxX},${pvs.maxY}`;
+}
+
+export function deserializePVS(str: string): PaperVirtualSize {
+  const [_, maxXs, maxYs] = str.match(/PS:(\d+),(\d+)$/) || [];
+  const maxX = parseInt(maxXs, 10);
+  const maxY = parseInt(maxYs, 10);
+  if (isNaN(maxX) || isNaN(maxY)) throw new Error(`Invalid paper size: ${str}`);
+  return { maxX, maxY };
+}
+
+

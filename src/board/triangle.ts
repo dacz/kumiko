@@ -117,8 +117,8 @@ export class Triangle {
   }
 
   // serializes either only none "None" triangles, or all
-  serialize(all?: boolean): string | undefined {
-    if (!all && this.filling == Filling.None) return undefined;
+  serialize(): string | undefined {
+    if (this.filling == Filling.None) return undefined;
     return `${this.coords.col},${this.coords.row},${this.filling}`
   }
 

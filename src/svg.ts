@@ -1,17 +1,17 @@
 // import { SVG } from '@svgdotjs/svg.js'
-import { Paper, PaperSerialized } from './board/paper'
-import { parseSerializedTriangle, ParsedTriangleData } from './board/triangle'
+import { Paper, deserializePaper } from './board/paper'
+import { ParsedTriangleData } from './board/triangle'
 import { PaperVirtualSize } from './board/types';
 
 export function setupSVG(elname: HTMLElement, initValue: string, notifier?: () => void): void {
   let pvs: PaperVirtualSize = { maxX: 8, maxY: 16 };
-  let trigsUnparsed: string[] = [];
+  let trigs: ParsedTriangleData[] = [];
 
   if (initValue) {
     try {
-      const ps: PaperSerialized = JSON.parse(initValue)
+      const ps = deserializePaper(initValue)
       pvs = ps.size
-      trigsUnparsed = ps.trigs
+      trigs = ps.trigs
     } catch (e) {
       console.error('Invalid initValue', e)
     }
@@ -20,11 +20,5 @@ export function setupSVG(elname: HTMLElement, initValue: string, notifier?: () =
   const p = new Paper(pvs).initSVGElement(elname)
   if (notifier) p.registerNotifier(notifier)
   p.drawTriangles()
-
-
-
-  if (trigsUnparsed.length > 0) {
-    const trigs = trigsUnparsed.map(parseSerializedTriangle).filter(tri => !(tri instanceof Error)) as ParsedTriangleData[]
-    p.applyTriangleData(trigs)
-  }
+  p.applyTriangleData(trigs)
 }

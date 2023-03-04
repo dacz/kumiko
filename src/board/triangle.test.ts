@@ -123,11 +123,9 @@ describe('serializing triangle', () => {
   it('ok', () => {
     // const pvs: PaperVirtualSize = { maxX: 10, maxY: 10 }
     const trig = new Triangle({ col: 1, row: 2 })
-    expect(trig.serialize(true)).toMatch("1,2,0")
-    expect(trig.serialize(false)).toBeUndefined()
+    expect(trig.serialize()).toBeUndefined()
     trig.applyFilling(Filling.Star)
-    expect(trig.serialize(true)).toMatch("1,2,2")
-    expect(trig.serialize(false)).toMatch("1,2,2")
+    expect(trig.serialize()).toMatch("1,2,2")
   })
 })
 
