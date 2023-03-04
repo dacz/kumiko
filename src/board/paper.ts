@@ -1,6 +1,6 @@
 import { PaperVirtualSize } from './types';
 import { SVG, Svg } from '@svgdotjs/svg.js'
-import { generateTriangles, Triangle, ParsedTriangleData } from './triangle';
+import { Triangle, ParsedTriangleData } from './triangle';
 
 // in general the paper reflects how it is represented in the DOM
 // that means x coord is the horizontal axis and 
@@ -18,7 +18,7 @@ export class Paper {
   svgElement: Svg | null = null;
   htmlElement: HTMLElement | null = null;
 
-  triangles: Triangle[] = [];
+  triangles: Triangle[][] = [];
   notifyFn: ((pap: Paper) => void) | null = null;
 
   constructor(size: PaperVirtualSize) {
@@ -50,7 +50,19 @@ export class Paper {
       throw new Error('svgElement is null');
     }
 
-    this.triangles = generateTriangles(this.size, this.notifyTriangleChange.bind(this)).map(triag => triag.draw(this.svgElement, this.rowSVGHeight));
+    // generate triangles
+    const triangles: Triangle[][] = [];
+    for (let col = 0; col < this.size.maxX; col++) {
+      const colTriangles: Triangle[] = [];
+      for (let row = 0; row < this.size.maxY * 2 - 1; row++) {
+        const triag = new Triangle({ col, row }, this.notifyTriangleChange.bind(this));
+        triag.draw(this.svgElement, this.rowSVGHeight)
+        colTriangles.push(triag);
+      }
+      triangles.push(colTriangles);
+    }
+
+    this.triangles = triangles;
 
     if (trigs) this.applyTriangleData(trigs);
 
@@ -58,22 +70,25 @@ export class Paper {
   }
 
   applyTriangleData(trigs: ParsedTriangleData[]): this {
-    this.triangles.forEach(tri => {
-      const found = trigs.find(trig => tri.hasCoords(trig.coords));
-      if (found) tri.applyFilling(found.filling);
-    });
+    trigs.forEach(trigIn => {
+      if ((trigIn.coords.col > this.size.maxX) || (trigIn.coords.row > this.size.maxY * 2 - 1)) {
+        console.log('invalid triangle coords', trigIn);
+        return;
+      }
+      this.triangles[trigIn.coords.col][trigIn.coords.row].applyFilling(trigIn.filling);
+    })
     return this;
   }
 
   resetTriangles(): this {
-    this.triangles.forEach(tri => tri.reset());
+    this.triangles.flat().forEach(tri => tri.reset());
     return this;
   }
 
   serialize(): string {
     const ps = {
       size: this.size,
-      trigs: this.triangles.map(tri => tri.serialize()).filter(tri => tri != null),
+      trigs: this.triangles.flat().map(tri => tri.serialize()).filter(tri => tri != null),
     } as PaperSerialized;
     return JSON.stringify(ps);
   }
