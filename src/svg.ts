@@ -4,7 +4,7 @@ import { parseSerializedTriangle, ParsedTriangleData } from './board/triangle'
 import { PaperVirtualSize } from './board/types';
 
 export function setupSVG(elname: HTMLElement, initValue: string, notifier?: () => void): void {
-  let pvs: PaperVirtualSize = { maxX: 8, maxY: 8 };
+  let pvs: PaperVirtualSize = { maxX: 8, maxY: 16 };
   let trigsUnparsed: string[] = [];
 
   if (initValue) {

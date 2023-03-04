@@ -25,7 +25,7 @@ export class Paper {
     this.size = size;
     this.colSVGWidth = this.svgWidth / (this.size.maxX + 1);
     this.rowSVGHeight = this.colSVGWidth / Paper.xSkew;
-    this.svgHeight = this.rowSVGHeight * (this.size.maxY + 1);
+    this.svgHeight = this.rowSVGHeight * (this.size.maxY / 2 + 1);
   }
 
   // creates the svg element and attaches it to the DOM
@@ -54,7 +54,7 @@ export class Paper {
     const triangles: Triangle[][] = [];
     for (let col = 0; col < this.size.maxX; col++) {
       const colTriangles: Triangle[] = [];
-      for (let row = 0; row < this.size.maxY * 2 - 1; row++) {
+      for (let row = 0; row < this.size.maxY - 1; row++) {
         const triag = new Triangle({ col, row }, this.notifyTriangleChange.bind(this));
         triag.draw(this.svgElement, this.rowSVGHeight)
         colTriangles.push(triag);
@@ -71,7 +71,7 @@ export class Paper {
 
   applyTriangleData(trigs: ParsedTriangleData[]): this {
     trigs.forEach(trigIn => {
-      if ((trigIn.coords.col > this.size.maxX) || (trigIn.coords.row > this.size.maxY * 2 - 1)) {
+      if ((trigIn.coords.col >= this.size.maxX) || (trigIn.coords.row >= this.size.maxY - 1)) {
         console.log('invalid triangle coords', trigIn);
         return;
       }
