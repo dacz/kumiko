@@ -1,6 +1,6 @@
 import { PaperVirtualSize } from './types';
 import { SVG, Svg } from '@svgdotjs/svg.js'
-import { generateTriangles, Triangle, ParsedTriangleData, Filling } from './triangle';
+import { generateTriangles, Triangle, ParsedTriangleData } from './triangle';
 
 // in general the paper reflects how it is represented in the DOM
 // that means x coord is the horizontal axis and 
