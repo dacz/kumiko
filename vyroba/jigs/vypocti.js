@@ -12,7 +12,7 @@ function degToRad(deg) {
 
 const delky = [];
 for (let i = 0; i < pocetKroku; i++) {
-  delky.push(Math.round(tanCalculated * i * 100) / 100 + nejkratsiStrana); // ta prvni iterace je jenom nejkratsi stranu
+  delky.push(Math.round(tanCalculated * (i * tloustkaMaterialu) * 100) / 100 + nejkratsiStrana); // ta prvni iterace je jenom nejkratsi stranu
 }
 
 // vystup

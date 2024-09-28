@@ -6,40 +6,23 @@ Ty latky, ktery pouzivam, maji tloustku 4,56mm. To je rozmer, kterej pouzivam pr
 
 ![alt text](vypocet.jpeg)
 
-v mm, pro 16 delek
-
-    10
-    10.58
-    11.15
-    11.73
-    12.31
-    12.89
-    13.46
-    14.04
-    14.62
-    15.2
-    15.77
-    16.35
-    16.93
-    17.51
-    18.08
-    18.66
-
-nebo pokud zacnu na 1,5cm
+v mm, pro 16 delek pokud zacnu na 1,5cm
 
     15
-    15.58
-    16.15
-    16.73
-    17.31
-    17.89
-    18.46
-    19.04
-    19.62
-    20.2
-    20.77
-    21.35
-    21.93
-    22.51
-    23.08
-    23.66
+    17.63
+    20.27
+    22.9
+    25.53
+    28.16
+    30.8
+    33.43
+    36.06
+    38.69
+    41.33
+    43.96
+    46.59
+    49.23
+    51.86
+    54.49
+
+Ufiknout trochu malinko delsi a pak si vzit do suplery rozmer a pak lehce brousit, az to bude odpovidat
