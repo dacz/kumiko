@@ -7,8 +7,15 @@
     <title>Kumiko hra</title>
   </head>
   <body>
+    <script type="module">
+        import { setit } from "/src/main.ts";
+        console.log(setit);
+        window.setit = setit;
+    </script>
     <div id="svgbox"></div>
     <div id="serialized"></div>
+    <div id="controls"><button onclick="setit()">setit</button></div>
     <script type="module" src="/src/main.ts"></script>
+    
   </body>
 </html>

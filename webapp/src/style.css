@@ -114,5 +114,10 @@ button:focus-visible {
     text-align: center;
     max-width: 100%;
     overflow-wrap: break-word;
+    font-size: 0.8rem;
     /* break-all ... unsupported */
+}
+
+#controls {
+    text-align: center;
 }
