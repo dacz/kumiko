@@ -15,7 +15,7 @@ export enum Filling {
 
 const stroked = { width: 5, color: '#999' } as StrokeData
 const strokedLines = { width: 5, color: '#999', linecap: 'butt', linejoin: 'bevel' } as StrokeData
-const unstroked = { width: 1, color: '#ddd' } as StrokeData
+const unstroked = { width: 1, color: 'transparent' } as StrokeData
 
 export class Triangle {
   // static readonly shortToTheStarCenter: number = Math.tan(30 * Math.PI / 180) / 2;
@@ -82,19 +82,21 @@ export class Triangle {
   fill(): string { return 'transparent' }
 
   stroke(): StrokeData {
+    // return stroked
     return this.filling == Filling.Star || this.filling == Filling.Empty ? stroked : unstroked
   }
 
   // click(cb: (e: MouseEvent) => void): this {
   click(): this {
-    console.log('CLICKED',);
+    // console.log('CLICKED',);
     switch (this.filling) {
       case Filling.None:
-        return this.applyFilling(Filling.Empty);
+        return this; // je to empty, tak nic nedelej
+      // return this.applyFilling(Filling.Empty);
       case Filling.Empty:
         return this.applyFilling(Filling.Star);
       case Filling.Star:
-        return this.applyFilling(Filling.None);
+        return this.applyFilling(Filling.Empty);
     }
   }
 

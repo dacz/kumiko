@@ -31,7 +31,8 @@ export class Paper {
   // creates the svg element and attaches it to the DOM
   initSVGElement(el: HTMLElement): this {
     this.htmlElement = el;
-    this.svgElement = SVG().viewbox(0, 0, this.svgWidth, this.svgHeight).css({ width: '100%', display: 'block' }).addTo(el)
+    this.svgElement = SVG().viewbox(110, 0, 810, 810).css({ width: '100%', display: 'block' }).addTo(el).size('100%', '100%')
+    // this.svgElement = SVG().viewbox(0, 0, this.svgWidth, this.svgHeight).css({ width: '100%', display: 'block' }).addTo(el).size('100%', '100%')
     return this;
   }
 
@@ -41,7 +42,7 @@ export class Paper {
   }
 
   notifyTriangleChange(tri: Triangle): void {
-    console.log('TRIANGLE CHANGED:', tri);
+    // console.log('TRIANGLE CHANGED:', tri);
     this.notifyFn?.bind(this, this)()
   }
 

@@ -9,14 +9,15 @@
 
 <body>
     <script type="module">
-        import { setit } from "/src/main.ts";
+        import { setit, rotate } from "/src/main.ts";
         // console.log(setit);
-        // window.setit = setit;
+        window.setit = setit;
+        window.rotate = rotate;
         setit();
     </script>
     <div id="svgbox"></div>
     <div id="serialized"></div>
-    <!-- <div id="controls"><button onclick="setit()">setit</button></div> -->
+    <div id="controls"><button onclick="rotate()">rotate</button><button onclick="setit(true)">reset</button></div>
     <script type="module" src="/src/main.ts"></script>
 </body>
 
