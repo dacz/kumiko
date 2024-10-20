@@ -41,7 +41,7 @@ export class Paper {
     return this;
   }
 
-  notifyTriangleChange(tri: Triangle): void {
+  notifyTriangleChange(_tri: Triangle): void {
     // console.log('TRIANGLE CHANGED:', tri);
     this.notifyFn?.bind(this, this)()
   }
