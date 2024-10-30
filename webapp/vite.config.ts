@@ -1,4 +1,7 @@
 export default {
   // config options
-  base: "./"
+  base: "./",
+  build: {
+    target: "esnext",
+  }
 }

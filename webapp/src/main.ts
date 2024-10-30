@@ -1,4 +1,4 @@
-import './style.css'
+// import './style.css'
 import { setupSVG } from './svg'
 import { Paper } from './board/paper'
 
