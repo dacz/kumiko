@@ -37,3 +37,4 @@ import * as SVG from 'https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.4/svg.es
 // Now you can use the imported functions
 const draw = SVG('drawing');
 const circle = draw.circle(100).fill('#f06');
+
