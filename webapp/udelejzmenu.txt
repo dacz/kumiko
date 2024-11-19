@@ -1,0 +1,39 @@
+Udelat to tak, ze se jen bude pouzivat svg z cdn a pak kod ode me, co je sice psanej v TS, ale chci ho jen jednoduse konvertovat do js a do modulu.
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.4/svg.min.js" integrity="sha512-ovlWyhrYXr3HEkGJI5YPXIFYIbHEKs2yfemKVVIIQe9U74tXyTuVdzMlvZlw/0X5lnIDRgtVlckrkeuCrDpq4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+40kb
+<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.4/svg.esm.js" integrity="sha512-V457SQe60QVG7WrwCQU15QHGLXhuN4m4DKF7znwN3OtLUKbczPblVpwpPfNQKpSjoLri6k1pusimLEyd5UehNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+20kb
+<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.4/svg.esm.min.js" integrity="sha512-VMj2OsRXtq37UVURns66OlRd3n8ycQrkwHFEZGBcEuG37wWvUScqfMiSHsvJ0YSMa3Go3XI7UFGOqnbu1fSJFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+----
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG.js Example</title>
+</head>
+<body>
+    <!-- Load SVG.js with defer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.4/svg.esm.min.js" 
+        integrity="sha512-VMj2OsRXtq37UVURns66OlRd3n8ycQrkwHFEZGBcEuG37wWvUScqfMiSHsvJ0YSMa3Go3XI7UFGOqnbu1fSJFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+    
+    <!-- Your script that imports from the same URL, also with defer -->
+    <script type="module" src="./your-script.js" defer></script>
+</body>
+</html>
+
+
+
+my script
+import * as SVG from 'https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.4/svg.esm.min.js';
+
+// Now you can use the imported functions
+const draw = SVG('drawing');
+const circle = draw.circle(100).fill('#f06');

@@ -3,21 +3,34 @@ import { setupSVG } from './svg'
 import { Paper } from './board/paper'
 
 const svgel = document.querySelector('#svgbox')
-const serel = document.querySelector('#serialized')
+// const serel = document.querySelector('#serialized')
 var rotated = 0
+var serializedPaper: string | undefined = ''
+var debouncer = makeDebouncer(1000)
+
 const notifier = (pap?: Paper) => {
-  let serializedPaper = pap?.serialize()
+  serializedPaper = pap?.serialize()
   if (rotated != 0) {
     serializedPaper += `|${rotated}`
   }
-  // console.log('NOTIFIER got message', serializedPaper)
-  // if (serel) serel.innerHTML = serializedPaper || ''
-  window.location.hash = encodeURI(serializedPaper || '')
+  console.log('NOTIFIER got message', serializedPaper)
+  debouncer()
+}
+
+function makeDebouncer(timeout = 1000) {
+  let timer: any;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      console.log('Setting URL', serializedPaper);
+      window.location.hash = encodeURI(serializedPaper || '')
+    }, timeout);
+  };
 }
 
 let initValue = 'PS:6,8|TR:1,1,1;1,2,1;1,3,1;1,4,1;1,5,1;2,0,1;2,1,1;2,2,1;2,3,1;2,4,1;2,5,1;2,6,1;3,0,1;3,1,1;3,2,1;3,3,1;3,4,1;3,5,1;3,6,1;4,1,1;4,2,1;4,3,1;4,4,1;4,5,1'
 
-export let differentInitValue = 'PS:8,8|TR:3,1,2;3,2,2;3,3,2;4,1,2;4,2,2;4,3,2'
+// export let differentInitValue = 'PS:8,8|TR:3,1,2;3,2,2;3,3,2;4,1,2;4,2,2;4,3,2'
 
 export function setit(force: boolean = false) {
   let currentBoard = initValue
@@ -33,7 +46,7 @@ export function setit(force: boolean = false) {
     rotated = -90
     rotate()
   }
-  if (svgel && serel) {
+  if (svgel) {
     svgel.innerHTML = ''
     setupSVG(svgel as HTMLElement, currentBoard, notifier)
   }
